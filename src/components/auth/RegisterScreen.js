@@ -25,14 +25,17 @@ export const RegisterScreen = () => {
     }
 
     const isFormValid = () => {
-        if (name.trim().length == 0) {
+        if (name.trim().length === 0) {
             dispatch(setError("name required"))
             return false;
-        } else if (email.trim().length == 0 || !validator.isEmail(email)) {
+        } else if (email.trim().length === 0 || !validator.isEmail(email)) {
             dispatch(setError("email not valid"))
             return false;
+        } else if (password.length <= 5) {
+            dispatch(setError("password is not valid"))
+            return false;
         } else if (password !== repeat_password || password.length <= 5) {
-            dispatch(setError("password is not valid, or not match"))
+            dispatch(setError("password Not match"))
             return false;
         }
         dispatch(removeError());

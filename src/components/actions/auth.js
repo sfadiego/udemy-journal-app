@@ -1,22 +1,27 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase-config';
-import { setError } from './ui'
+import { setError, uiFinishLoading, uiStartLoading } from './ui'
 import { types } from "../../types/types"
 //engloba todo el action-payload para mandarse al dispatch
 
 export const startLoginEmailPassword = (email, password) => {
     //peticion asincrona
     return (dispatch) => {
+        dispatch(uiStartLoading())
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(({ user }) => {
+                dispatch(uiFinishLoading())
                 return dispatch(login(user.uid, user.displayName))
-            }).catch(err => {
-                console.log(err)
+            }).catch(({ message }) => {
+                dispatch(uiFinishLoading())
+                dispatch(setError(message))
             })
+
     }
 }
 
 export const startRegisterWithEmailPasswordName = (email, password, name) => {
+    //peticion asincrona 
     return (dispatch) => {
         firebase.auth()
             .createUserWithEmailAndPassword(email, password)
@@ -29,6 +34,7 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
 }
 
 export const startGoogleLogin = () => {
+    //peticion asincrona 
     return (dispatch) => {
         firebase.auth()
             .signInWithPopup(googleAuthProvider)
@@ -36,7 +42,7 @@ export const startGoogleLogin = () => {
                 const { uid, displayName } = user;
                 dispatch(login(uid, displayName))
             }).catch(err => {
-                // console.log(err)
+                console.log(err)
             })
     }
 }
