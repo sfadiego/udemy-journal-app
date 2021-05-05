@@ -1,6 +1,11 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { JournalEntries } from './JournalEntries'
 
+
+const dispatch = useDispatch();
+const handleLogOut = () => {
+}
 
 export const Sidebar = () => {
     return (
@@ -9,7 +14,7 @@ export const Sidebar = () => {
                 <h3 className="mt-5">
                     <i className="fas fa-moon"></i>
                 </h3>
-                <button className="btn">Logout</button>
+                <button onClick={handleLogOut} className="btn">Logout</button>
             </div>
             <div className="journal__new-entry">
                 <i className="far fa-calendar-plus fa-5x"></i>

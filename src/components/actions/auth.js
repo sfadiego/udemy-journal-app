@@ -54,3 +54,8 @@ export const login = (uid, displayName) => ({
         displayName
     }
 })
+
+export const logout = () => ({
+    type: types.login,
+    payload: {}
+})
