@@ -9,7 +9,7 @@ import { removeError, setError } from '../actions/ui';
 export const LoginScreen = () => {
     const dispatch = useDispatch();
     const { msgError, loading } = useSelector(state => state.ui)
-    //console.log(loading);
+    
     const [formValues, handleInputChange] = useForm({
         email: 'sfadiego@gmail.com',
         password: '123456'

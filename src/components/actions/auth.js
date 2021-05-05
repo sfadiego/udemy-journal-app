@@ -1,8 +1,8 @@
 import { firebase, googleAuthProvider } from '../../firebase/firebase-config';
 import { setError, uiFinishLoading, uiStartLoading } from './ui'
 import { types } from "../../types/types"
-//engloba todo el action-payload para mandarse al dispatch
 
+//engloba todo el action-payload para mandarse al dispatch
 export const startLoginEmailPassword = (email, password) => {
     //peticion asincrona
     return (dispatch) => {
