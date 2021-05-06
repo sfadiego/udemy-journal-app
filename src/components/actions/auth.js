@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import { firebase, googleAuthProvider } from '../../firebase/firebase-config';
 import { setError, uiFinishLoading, uiStartLoading } from './ui'
 import { types } from "../../types/types"
@@ -13,6 +14,8 @@ export const startLoginEmailPassword = (email, password) => {
                 dispatch(uiFinishLoading())
                 return dispatch(login(user.uid, user.displayName))
             }).catch(({ message }) => {
+
+                Swal.fire({ icon: 'error', title: message });
                 dispatch(uiFinishLoading())
                 dispatch(setError(message))
             })
@@ -29,7 +32,10 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
                 await user.updateProfile({ displayName: name })
                 dispatch(login(user.uid, name))
             })
-            .catch(({ message }) => dispatch(setError(message)))
+            .catch(({ message }) => {
+                Swal.fire({ icon: 'error', title: message });
+                dispatch(setError(message))
+            })
     }
 }
 
