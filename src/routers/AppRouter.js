@@ -10,6 +10,9 @@ import { JournalScreen } from '../components/journal/JournalScreen'
 import { AuthRouters } from './AuthRouters'
 import { useDispatch } from 'react-redux';
 import { login } from '../components/actions/auth';
+import { PrivateRouter } from './PrivateRouter';
+import { PublicRouter } from './PublicRouter';
+// import { DashboardRoutes } from './DashboardRoutes';
 
 export const AppRouter = () => {
     const dispatch = useDispatch()
@@ -23,7 +26,7 @@ export const AppRouter = () => {
                 if (user?.uid) {
                     setIsloggedIn(true)
                     dispatch(login(user.uid, user.displayName))
-                }else{
+                } else {
                     setIsloggedIn(false)
                 }
             })
@@ -31,17 +34,28 @@ export const AppRouter = () => {
 
     }, [dispatch, checking])
 
-    if(checking){
+    if (checking) {
         return (
             <h1>Cargando ...</h1>
         )
     }
+
     return (
         <Router>
             <Switch>
-                <Route path="/auth" component={AuthRouters}  ></Route>
-                <Route exact path="/" component={JournalScreen} ></Route>
-                <Redirect to="/auth/register"></Redirect>
+                {/* <Route path="/auth" component={AuthRouters}  ></Route> */}
+                <PublicRouter
+                    path='/auth'
+                    component={AuthRouters}
+                    isAuthenticated={isloggedIn}
+                />
+                <PrivateRouter
+                    exact
+                    isAuthenticated={isloggedIn}
+                    path='/'
+                    component={JournalScreen}
+                />
+                <Redirect to="/auth/login"></Redirect>
             </Switch>
         </Router>
     )
