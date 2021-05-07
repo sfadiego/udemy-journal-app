@@ -27,8 +27,9 @@ export const AppRouter = () => {
                     setIsloggedIn(true)
                     dispatch(login(user.uid, user.displayName))
                     const notes = loadNotes(user.uid);
+                    // console.log("notas");
+                    // notes.then(respo => console.log(respo))
                     // dispatch(setNotes(notes));
-                    console.log(notes);
                 } else {
                     setIsloggedIn(false)
                 }
