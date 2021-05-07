@@ -6,12 +6,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
 import { authReducer } from '../reducers/authReducer';
+import { notesReducer } from '../reducers/notesReducer';
 import { uiReducer } from '../reducers/uiReducer';
 
 //Store Solo recibe un reducer - combinereducers ayuda a usar varios reducers
 const reducers = combineReducers({
     auth: authReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    notes:notesReducer
 })
 
 //para usar thunk - peticiones asyncronas con middleware

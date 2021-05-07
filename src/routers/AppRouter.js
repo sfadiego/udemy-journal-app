@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { login } from '../components/actions/auth';
 import { PrivateRouter } from './PrivateRouter';
 import { PublicRouter } from './PublicRouter';
+import { loadNotes } from '../helpers/loadNotes';
+import { setNotes } from '../components/actions/notes';
 
 export const AppRouter = () => {
     const dispatch = useDispatch()
@@ -24,6 +26,9 @@ export const AppRouter = () => {
                 if (user?.uid) {
                     setIsloggedIn(true)
                     dispatch(login(user.uid, user.displayName))
+                    const notes = loadNotes(user.uid);
+                    // dispatch(setNotes(notes));
+                    console.log(notes);
                 } else {
                     setIsloggedIn(false)
                 }
