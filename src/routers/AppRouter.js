@@ -22,15 +22,12 @@ export const AppRouter = () => {
         // regresa un observador, que vigila el estado de la session
         firebase
             .auth()
-            .onAuthStateChanged((user) => {
+            .onAuthStateChanged(async (user) => {
                 if (user?.uid) {
                     setIsloggedIn(true)
                     dispatch(login(user.uid, user.displayName))
-                    const notas = loadNotes(user.uid).then(console.log);
-
-                    console.log("notas", notas);
-                    // notes.then(respo => console.log(respo))
-                    // dispatch(setNotes(notes));
+                    const notes = await loadNotes(user.uid);
+                    dispatch(setNotes(notes));
                 } else {
                     setIsloggedIn(false)
                 }
