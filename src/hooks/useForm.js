@@ -10,8 +10,8 @@ export const useForm = (initialState = {}) => {
         setvalues({ ...values, [target.name]: valor })
     }
 
-    const reset = () => {
-        setvalues(initialState)
+    const reset = (newFormState = initialState) => {
+        setvalues(newFormState)
     }
 
     return [

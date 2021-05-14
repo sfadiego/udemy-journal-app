@@ -7,7 +7,6 @@ export const JournalEntry = ({ id, body, title, date, url }) => {
     const noteDate = moment(date)
     const dispatch = useDispatch()
     const handleActiveNote = () => {
-        console.log("id activo",id);
         dispatch(activeNote(id, {
             title,
             body,
