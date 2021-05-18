@@ -11,10 +11,9 @@ export const startLoginEmailPassword = (email, password) => {
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(({ user }) => {
+                dispatch(login(user.uid, user.displayName))
                 dispatch(uiFinishLoading())
-                return dispatch(login(user.uid, user.displayName))
             }).catch(({ message }) => {
-
                 Swal.fire({ icon: 'error', title: message });
                 dispatch(uiFinishLoading())
                 dispatch(setError(message))
