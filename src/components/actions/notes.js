@@ -38,8 +38,11 @@ export const setNotes = (notes) => ({
     payload: notes
 })
 
-export const starSaveNote = () => {
+export const startSaveNote = (nota) => {
     return (dispatch, getState) => {
-        // const { } = getState().auth
+        const { uid } = getState().auth
+        const noteToFireStore = { ...note };
+        console.log(noteToFireStore);
+        // delete noteToFireStore.id
     }
 }
