@@ -39,10 +39,14 @@ export const setNotes = (notes) => ({
 })
 
 export const startSaveNote = (nota) => {
-    return (dispatch, getState) => {
-        const { uid } = getState().auth
-        const noteToFireStore = { ...note };
-        console.log(noteToFireStore);
+    return async(dispatch, getState) => {
+        const auth  = getState().auth
+        const noteToFireStore = { ...nota };
+        delete noteToFireStore.id;
+        const url = `/journal/${nota.id}`;
+        console.log(auth, url);
+        // await db.doc(url).update(noteToFireStore);
+        // console.log("start save", noteToFireStore);
         // delete noteToFireStore.id
     }
 }

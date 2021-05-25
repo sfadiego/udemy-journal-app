@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 
 export const NotesAppBar = () => {
     const { active } = useSelector(state => state.notes)
+    
     const handleSave = () => {
-        // console.log("salvar", active);
-        
+        console.log("salvar", active);
     }
 
     return (

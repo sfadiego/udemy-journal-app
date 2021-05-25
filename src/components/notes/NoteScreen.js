@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector, } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
 import { activeNote } from '../actions/notes'
 import { NotesAppBar } from './NotesAppBar'
