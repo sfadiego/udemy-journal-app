@@ -61,3 +61,12 @@ export const refreshNote = (id, note) => ({
         }
     }
 })
+
+
+export const startUploading = (file) => {
+    return (dispatch, getState) => {
+        const { active: activeNotes } = getState().notes;
+        console.table(file);
+        console.table(activeNotes);
+    }
+}
