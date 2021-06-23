@@ -10,10 +10,11 @@ export const NoteScreen = () => {
     const [formValues, handleInputChange, reset] = useForm({
         title: note.title,
         body: note.body,
+        url: note.url,
         date: new Date().getTime()
     })
 
-    const { title, body } = formValues;
+    const { title, body, url } = formValues;
     const activeId = useRef(note.id)
     useEffect(() => {
         if (note.id !== activeId.current) {
@@ -45,7 +46,7 @@ export const NoteScreen = () => {
                     className="notes__title-textarea">
                 </textarea>
                 <div className="notes__image">
-                    <img src="https://picsum.photos/id/684/600/400" alt="" />
+                    <img src={` ${note.url ? note.url : 'https://picsum.photos/id/684/600/400'}`} />
                 </div>
             </div>
         </div>

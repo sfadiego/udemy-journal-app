@@ -1,6 +1,7 @@
 
 import Swal from 'sweetalert2'
 import { db } from '../../firebase/firebase-config';
+import { fileUpload } from '../../helpers/fileUpload';
 import { loadNotes } from '../../helpers/loadNotes';
 import { types } from '../../types/types';
 
@@ -42,6 +43,11 @@ export const setNotes = (notes) => ({
 export const startSaveNote = (note) => {
     return async (dispatch, getState) => {
         const { uid } = getState().auth // verificar como se guarda por usuarios
+        
+        // if(!note.url ){
+        //     delete note.url
+        // }
+
         const noteToFireStore = { ...note };
         delete noteToFireStore.id;
         await db.doc(`journal/${note.id}`).update(noteToFireStore);
@@ -64,9 +70,23 @@ export const refreshNote = (id, note) => ({
 
 
 export const startUploading = (file) => {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const { active: activeNotes } = getState().notes;
-        console.table(file);
-        console.table(activeNotes);
+        
+        Swal.fire({
+            title:'uploading',
+            text:'Please wait...',
+            showConfirmButton: false,
+            allowOutsideClick:false,
+            willOpen:()=>{
+                Swal.showLoading();
+            }
+        });
+
+        const file_url = await fileUpload(file);
+        activeNotes.url = file_url;
+        dispatch(startSaveNote(activeNotes));
+        
+        Swal.close();
     }
 }

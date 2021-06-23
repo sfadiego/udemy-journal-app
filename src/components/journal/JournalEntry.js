@@ -10,7 +10,8 @@ export const JournalEntry = ({ id, body, title, date, url }) => {
         dispatch(activeNote(id, {
             title,
             body,
-            date
+            date,
+            url
         }))
     }
 
@@ -20,7 +21,7 @@ export const JournalEntry = ({ id, body, title, date, url }) => {
                 url &&
                 <div className="journal__entry-picture" style={{
                     backgroundSize: 'cover',
-                    backgroundImage: 'url(https://i.pinimg.com/originals/af/8d/63/af8d63a477078732b79ff9d9fc60873f.jpg)'
+                    backgroundImage: `url(${url})`
                 }}>
                 </div>
             }

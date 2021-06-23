@@ -12,11 +12,10 @@ export const NotesAppBar = () => {
         dispatch(startSaveNote(note))
     }
     const handlePictureClick = () => {
-        document.querySelector("#fileselector").click();
+        document.querySelector("#fileselector").click(); //simula el click en type=file
     }
 
     const handleFileChange = ({ target }) => {
-        console.log("handleFileChange", target.files);
         const file = target.files[0];
         if (file) {
             dispatch(startUploading(file))
