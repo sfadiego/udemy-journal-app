@@ -43,10 +43,10 @@ export const setNotes = (notes) => ({
 export const startSaveNote = (note) => {
     return async (dispatch, getState) => {
         const { uid } = getState().auth // verificar como se guarda por usuarios
-        
-        // if(!note.url ){
-        //     delete note.url
-        // }
+
+        if (!note.url) {
+            delete note.url
+        }
 
         const noteToFireStore = { ...note };
         delete noteToFireStore.id;
@@ -72,13 +72,13 @@ export const refreshNote = (id, note) => ({
 export const startUploading = (file) => {
     return async (dispatch, getState) => {
         const { active: activeNotes } = getState().notes;
-        
+
         Swal.fire({
-            title:'uploading',
-            text:'Please wait...',
+            title: 'uploading',
+            text: 'Please wait...',
             showConfirmButton: false,
-            allowOutsideClick:false,
-            willOpen:()=>{
+            allowOutsideClick: false,
+            willOpen: () => {
                 Swal.showLoading();
             }
         });
@@ -86,7 +86,26 @@ export const startUploading = (file) => {
         const file_url = await fileUpload(file);
         activeNotes.url = file_url;
         dispatch(startSaveNote(activeNotes));
-        
+
         Swal.close();
     }
 }
+
+export const deleteNote = (id) => ({
+    type: types.notesDelete,
+    payload: id
+})
+
+export const startDeleting = (id) => {
+    return async (dispatch, getState) => {
+        const { active: activeNotes } = getState().notes;
+
+        await db.doc(`journal/${activeNotes.id}`).delete();
+        dispatch(deleteNote(activeNotes.id));
+        Swal.fire('deleted note', "", 'success')
+    }
+}
+
+export const notesLogOut = () => ({
+    type: types.notesLogOutCleaning
+})
