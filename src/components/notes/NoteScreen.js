@@ -49,7 +49,7 @@ export const NoteScreen = () => {
                     className="notes__title-textarea">
                 </textarea>
                 <div className="notes__image">
-                    <img src={` ${note.url ? note.url : 'https://picsum.photos/id/684/600/400'}`} />
+                    <img alt="img note" src={` ${note.url ? note.url : 'https://picsum.photos/id/684/600/400'}`} />
                 </div>
             </div>
             <button onClick={handleDelete} className="btn btn-danger">

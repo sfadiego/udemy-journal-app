@@ -8,13 +8,14 @@ import { types } from '../../types/types';
 export const startNewNotes = () => {
     //dispatch, state => propios del midleware 
     return async (dispatch, getState) => {
+        const { uid } = getState().auth;
         const newNote = {
             title: '',
             body: '',
             date: new Date().getTime()
         }
 
-        const doc = await db.collection(`journal`).add(newNote)
+        const doc = await db.collection(`${uid}/journal/notes`).add(newNote)
         dispatch(activeNote(doc.id, newNote))
     }
 }
@@ -50,23 +51,25 @@ export const startSaveNote = (note) => {
 
         const noteToFireStore = { ...note };
         delete noteToFireStore.id;
-        await db.doc(`journal/${note.id}`).update(noteToFireStore);
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFireStore);
         dispatch(refreshNote(note.id, note));
         Swal.fire('saved', note.title, 'success')
     }
 }
 
 
-export const refreshNote = (id, note) => ({
-    type: types.notesUpdated,
-    payload: {
-        id,
-        note: {
+export const refreshNote = (id, note) => {
+    return {
+        type: types.notesUpdated,
+        payload: {
             id,
-            ...note
+            note: {
+                id,
+                ...note
+            }
         }
     }
-})
+}
 
 
 export const startUploading = (file) => {
@@ -100,7 +103,7 @@ export const startDeleting = (id) => {
     return async (dispatch, getState) => {
         const { active: activeNotes } = getState().notes;
 
-        await db.doc(`journal/${activeNotes.id}`).delete();
+        await db.doc(`${id}/journal/notes/${activeNotes.id}`).delete();
         dispatch(deleteNote(activeNotes.id));
         Swal.fire('deleted note', "", 'success')
     }

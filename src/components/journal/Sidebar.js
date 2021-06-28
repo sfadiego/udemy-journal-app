@@ -2,15 +2,14 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { JournalEntries } from './JournalEntries'
 import {  startLogout } from '../actions/auth';
-import { notesLogOut, setNotes, startNewNotes } from '../actions/notes';
+import {  startNewNotes } from '../actions/notes';
 
 export const Sidebar = () => {
     const dispatch = useDispatch();
     const { name } = useSelector(state => state.auth)
-    const { notes } = useSelector(state => state.notes)
+    
     const handleLogOut = () => {
         dispatch(startLogout())
-        dispatch(notesLogOut());
     }
 
     const handleAddNewEntry = () => {
