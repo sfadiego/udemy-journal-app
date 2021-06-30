@@ -28,7 +28,7 @@ export const NoteScreen = () => {
     }, [formValues, dispatch])
 
     const handleDelete = () => {
-        dispatch(startDeleting());
+        dispatch(startDeleting(note.id));
     }
 
     return (

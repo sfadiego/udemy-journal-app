@@ -12,6 +12,7 @@ import { login } from '../components/actions/auth';
 import { PrivateRouter } from './PrivateRouter';
 import { PublicRouter } from './PublicRouter';
 import { startLoadingNotes } from '../components/actions/notes';
+import { Loading } from '../components/ui/Loading';
 
 export const AppRouter = () => {
     const dispatch = useDispatch()
@@ -34,11 +35,12 @@ export const AppRouter = () => {
 
     }, [dispatch, checking])
 
-    if (checking) {
-        return (
-            <h1>Please wait ...</h1>
-        )
-    }
+    // if (checking) {
+        // return (
+            // <h1>Please wait ...</h1>
+            // <Loading></Loading>
+        // )
+    // }
 
     return (
         <Router>

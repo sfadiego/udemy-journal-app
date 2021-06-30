@@ -10,7 +10,7 @@ import { Redirect } from 'react-router-dom'
 export const AuthRouters = () => {
     return (
         <div className="auth__main">
-            <div className="auth__box-container">
+            <div className="auth__box-container animate__animated animate__fadeInLeftBig animate__faster">
                 <Switch>
                     <Route path="/auth/login" component={LoginScreen}  ></Route>
                     <Route exact path="/auth/register" component={RegisterScreen}  ></Route>
@@ -20,3 +20,4 @@ export const AuthRouters = () => {
         </div>
     )
 }
+
